@@ -1,0 +1,13 @@
+<h1>Users#index</h1>
+<p>Find me in app/views/users/index.html.erb</p>
+<%= render 'shared/sidemenu', post: @newpost, user: current_user %>
+
+<% @users.each do |user| %>
+    <%= link_to user_path(user.id) do %>
+			<%= attachment_image_tag user, :profile_image,　format: 'jpeg', size: "40x40", fallback: "img/no_image.jpg" %>
+    <% end %>
+    <%= link_to user_path(user.id) do %>
+        <%= user.name %>
+        <% end %>
+    <%= link_to 'Show', user_path(user.id) %>        
+<% end %>

@@ -1,0 +1,12 @@
+<h1>Books#index</h1>
+<p>Find me in app/views/books/index.html.erb</p>
+<%= render 'shared/sidemenu', post: @newpost, user: current_user %>
+
+<% @posts.each do |post| %>
+    <%= link_to user_path(post.user.id) do %>
+        <%= post.user.email %>
+    <% end %>
+    <%= link_to post_path(post.id) do %>
+        <%= post.title %>
+    <% end %>
+<% end %>

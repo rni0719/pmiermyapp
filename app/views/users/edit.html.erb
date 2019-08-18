@@ -1,0 +1,13 @@
+<h1>Users#edit</h1>
+<p>Find me in app/views/users/edit.html.erb</p>
+<div>
+<%= form_for @user do |t| %>
+    <h4>Name</h4>
+            <%= t.text_field :name %>
+    <h4>Image</h4>
+            <%= t.attachment_field :profile_image, placeholder: "プロフィール画像", class: "user-edit-form" %>
+    <h4>Introduction</h4>
+            <%= t.text_area :introduction %><br>
+            <%= t.submit 'Update' %>
+        <% end %>
+</div>

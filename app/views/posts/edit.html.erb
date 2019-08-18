@@ -1,0 +1,11 @@
+<h1>Books#edit</h1>
+<p>Find me in app/views/books/edit.html.erb</p>
+<div>
+<%= form_for @post do |t| %>
+    <h4>Title</h4>
+            <%= t.text_field :title %>
+    <h4>Opinion</h4>
+            <%= t.text_area :body %><br>
+            <%= t.submit 'Post' %>
+        <% end %>
+</div>

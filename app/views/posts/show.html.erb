@@ -1,0 +1,11 @@
+<h1>Books#show</h1>
+<p>Find me in app/views/books/show.html.erb</p>
+<%= render 'shared/sidemenu', post: @newpost, user: current_user %>
+
+<%= @post.user.name %>
+<%= @post.title %>
+<%= @post.body %>
+<% if @post.user_id == current_user.id %>
+    <%= link_to '編集', edit_post_path(@post.id) %>
+    <%= link_to '削除', post_path(@post.id), method: :delete, 'data-confirm' => "本当に削除しますか？" %>
+<% end %>
