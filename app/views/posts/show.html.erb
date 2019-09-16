@@ -1,11 +1,62 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
 <%= render 'shared/sidemenu', post: @newpost, user: current_user %>
 
-<%= @post.user.name %>
-<%= @post.title %>
-<%= @post.body %>
-<% if @post.user_id == current_user.id %>
-    <%= link_to '編集', edit_post_path(@post.id) %>
-    <%= link_to '削除', post_path(@post.id), method: :delete, 'data-confirm' => "本当に削除しますか？" %>
+<h1>Post Detail</h1>
+<table class="table">
+    <tbody>
+        <tr>
+            <td>
+                <%= link_to user_path(@post.user.id) do %>
+                    <%= attachment_image_tag @post.user, :profile_image, fallback: "no_image.jpg", format:'jpeg', size: "40x40" %>
+                    <br><%= @post.user.name %>
+                <% end %>
+            </td>
+            <td>
+                <%= @post.title %>
+            </td>
+            <td><%= @post.body %></td>
+            <% if @post.user_id == current_user.id %>
+                <td><%= link_to '編集', edit_post_path(@post.id) %></td>
+                <td><%= link_to '削除', post_path(@post.id), method: :delete, 'data-confirm' => "本当に削除しますか？" %></td>
+            <% end %>
+        </tr>
+    </tbody>
+</table>
+
+<% if @post.favorited_by?(current_user) %>
+    <li class="fa">
+        <%= link_to post_favorites_path(@post), method: :delete do %>
+            <div class="heart"></div>
+        <% end %>
+        <div><%= @post.favorites.count %>いいね</div>
+        <div><%= @post.post_comments.count %>コメント</div>
+    </li>
+<% else %>
+    <li class="fa">
+        <%= link_to post_favorites_path(@post), method: :post do %>
+            <div class="heart"></div>
+            <div class="fa_font"></div>
+        <% end %>
+        <div><%= @post.favorites.count %>いいね</div>
+        <div><%= @post.post_comments.count %>コメント</div>
+    </li>
+<% end %>
+
+
+<ol>
+    <% @post.post_comments.each do |comment| %>
+        <li>
+            <%= comment.user.name %>
+            <%= comment.created_at.strftime('%Y/%m/%d') %>
+            <div><%= comment.body %></div>
+        </li>
+    <% end %>
+</ol>
+
+<%= form_for [@post, @post_comment] do |f| %>
+    <div class="row">
+        <div class="col-sm-12">
+            <%= f.text_area :body, rows:'3', class: "form-control",placeholder: "コメントをここに" %>
+        </div>
+    </div>
+    <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
 <% end %>

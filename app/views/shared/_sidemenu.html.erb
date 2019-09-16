@@ -1,19 +1,24 @@
-<div>
-    <h1>User Info</h1>
-	    <%= attachment_image_tag current_user, :profile_image,　format: 'jpeg', size: "40x40", fallback: "img/no_image.jpg" %>
-    <h4>name</h4>
-        <%= current_user.name %>
-    <h4>introduction</h4>
-        <%= current_user.introduction %><br>
-    <%= link_to '編集', edit_user_path(user.id) %>
-</div>
-<div>
-    <h1>New Book</h1>
-        <%= form_for post do |t| %>
-    <h4>Title</h4>
-            <%= t.text_field :title %>
-    <h4>Opinion</h4>
-            <%= t.text_area :body %><br>
-            <%= t.submit 'Post' %>
+<div class="col-sm-3">
+    <div>
+        <h1>User Info</h1>
+            <%= attachment_image_tag user, :profile_image,　format: 'jpeg', size: "40x40", fallback: "no_image.jpg" %>
+        <h4>name</h4>
+            <%= user.name %>
+        <h4>introduction</h4>
+            <%= user.introduction %><br>
+        <% if user.id == current_user.id %>
+            <%= link_to '編集', edit_user_path(user.id) %>
         <% end %>
+    </div>
+    <div>
+        <h1>New Post</h1>
+            <%= form_for post do |t| %>
+        <h4>Title</h4>
+                <%= t.text_field :title %>
+        <h4>Opinion</h4>
+                <%= t.text_area :body %><br>
+                <%= t.submit 'Post' %>
+            <% end %>
+    </div>
 </div>
+<div class="col-sm-9">

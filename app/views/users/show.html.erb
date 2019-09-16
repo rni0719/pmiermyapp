@@ -1,13 +1,34 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-<%= render 'shared/sidemenu', post: @newpost, user: current_user %>
+<%= render 'shared/sidemenu', post: @newpost, user: @user %>
 
 <h1>Posts</h1>
-<% @posts.each do |post| %>
-    <%= link_to user_path(post.user.id) do %>
-        <%= post.user.email %>
-    <% end %>
-    <%= link_to post_path(post.id) do %>
-        <%= post.title %>
-    <% end %>
-<% end %>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>title</th>
+            <th>option</th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @posts.each do |post| %>
+            <tr>
+                <td>
+                    <%= link_to user_path(post.user.id) do %>
+                        <%= attachment_image_tag post.user, :profile_image, fallback: "no_image.jpg", format:'jpeg', size: "40x40" %>
+                    <% end %>
+                </td>
+                <td>
+                    <%= link_to post_path(post.id) do %>
+                        <%= post.title %>
+                    <% end %>
+                </td>
+                <td><%= post.body %></td>
+                <% if post.user_id == current_user.id %>
+                    <td><%= link_to '編集', edit_post_path(post.id) %></td>
+                    <td><%= link_to '削除', post_path(post.id), method: :delete, 'data-confirm' => "本当に削除しますか？" %></td>
+                <% end %>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

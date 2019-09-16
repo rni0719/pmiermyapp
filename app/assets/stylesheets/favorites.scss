@@ -1,0 +1,26 @@
+// Place all the styles related to the Favorites controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.heart {
+    width: 80px;
+    height: 80px;
+    background: url(http://nelog.jp/wp-content/uploads/2016/03/heart_animation.png) no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+}
+.heart:hover {
+background-position: -2800px 0;
+-webkit-transition: background 1s steps(28);
+transition: background 1s steps(28);
+}
+
+.fa {
+    list-style: none;
+}
+
+.fa_font {
+    font-size: 25px;
+    width: 25px;
+    float: left;
+}
